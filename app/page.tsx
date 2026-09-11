@@ -37,10 +37,7 @@ export default function Home() {
                   <div className="entry-date">
                     {month} {day}
                   </div>
-                  <Link
-                    href={`/${entry.slug}`}
-                    className={`entry-title ${entry.type === 'note' ? 'entry-title--note' : ''}`}
-                  >
+                  <Link href={`/${entry.slug}`} className="entry-title">
                     {displayTitle}
                   </Link>
                   <div className="entry-type">{entry.type}</div>

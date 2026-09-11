@@ -65,10 +65,16 @@ a:visited {
 
 .entry-title {
   color: var(--ink);
+  text-decoration: none;
 }
 
-.entry-title--note {
-  font-style: italic;
+.entry-title:visited {
+  color: var(--ink);
+}
+
+.entry-title:hover,
+.entry-title:focus {
+  text-decoration: underline;
 }
 
 .entry-type {
