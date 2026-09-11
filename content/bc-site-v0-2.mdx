@@ -1,0 +1,31 @@
+---
+title: bc-site v0.2 — The stream renders
+date: 2026-09-11
+type: project
+slug: bc-site-v0-2
+summary: Content layer, index and detail pages. The site is finally showing its own writing.
+repoUrl: https://github.com/cumberlidge/bc-site
+stack: [Next.js, TypeScript, Tailwind, Zod, Vercel]
+---
+
+## Shipped
+
+Four entries, rendering. A content module that reads the markdown files, validates every field against a schema, and refuses to build if one is malformed. An index that lists everything in reverse-chronological order with year markers. Detail pages that switch layout depending on what kind of entry they are. Add a file, push, and it appears — which was the test for this phase, and it passes.
+
+## Decisions
+
+**Validation that fails loudly.** The schema is a discriminated union on the entry type, so a note is checked against different rules than an essay — and a note carrying a title is an error, not a warning, because a titled note breaks feed readers. I deleted a required field on purpose to watch the build fall over. A validator you've never seen fire is indistinguishable from no validator at all.
+
+**Images break out of the measure.** Notes are set narrow and centred. The first one had a sketch in it — annotated, landscape, unreadable at that width. So images now run to the full content width while the text stays narrow. I'd written this into the spec as an open question to be settled by looking rather than guessing, and looking took about four seconds.
+
+**No link colour on the index.** I'd specced the classic browser blue as a kind of deliberate plainness. In a serif at that size it reads as an unstyled page rather than a decision, and the visited purple made every row I'd clicked look stale. Rows are black now; hover and focus do the signalling. Colour wasn't carrying any information the position and the type label weren't already.
+
+## Snags
+
+The note truncation cut mid-word and left "eno" hanging in the index. Character counts are a lazy proxy for a sentence. It takes the first full stop now.
+
+An image that wouldn't load, because I'd renamed the file and not the reference. And a file saved as `bc-site v0.1 — Foundation` with spaces, an em dash, and no extension — a title where a filename should be.
+
+## Next
+
+The filter, then the feed. Then this site becomes machine-readable.
