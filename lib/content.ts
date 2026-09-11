@@ -78,13 +78,30 @@ export type Fiction = z.infer<typeof fictionSchema>;
 export type Note = z.infer<typeof noteSchema>;
 export type Project = z.infer<typeof projectSchema>;
 
+// Extended entry type with content body
+export type EntryWithContent = Entry & {
+  content: string;
+};
+
 const CONTENT_DIR = path.join(process.cwd(), 'content');
+
+/**
+ * Extracts the first line from markdown content and truncates it at maxLength.
+ * Used for displaying notes in the index.
+ */
+export function getFirstLine(content: string, maxLength: number = 60): string {
+  const firstLine = content.trim().split('\n')[0];
+  if (firstLine.length <= maxLength) {
+    return firstLine;
+  }
+  return firstLine.slice(0, maxLength);
+}
 
 /**
  * Reads all MDX files from /content, parses frontmatter, validates with Zod,
  * and returns entries sorted by date descending, excluding drafts.
  */
-export function getAllEntries(): Entry[] {
+export function getAllEntries(): EntryWithContent[] {
   // Check if content directory exists
   if (!fs.existsSync(CONTENT_DIR)) {
     throw new Error(`Content directory not found at ${CONTENT_DIR}`);
@@ -93,12 +110,12 @@ export function getAllEntries(): Entry[] {
   const files = fs.readdirSync(CONTENT_DIR);
   const mdxFiles = files.filter(file => file.endsWith('.mdx'));
 
-  const entries: Entry[] = [];
+  const entries: EntryWithContent[] = [];
 
   for (const filename of mdxFiles) {
     const filePath = path.join(CONTENT_DIR, filename);
     const fileContent = fs.readFileSync(filePath, 'utf-8');
-    const { data } = matter(fileContent, {
+    const { data, content } = matter(fileContent, {
       // Prevent gray-matter from parsing dates as Date objects
       engines: {
         yaml: (s) => require('js-yaml').load(s, { schema: require('js-yaml').JSON_SCHEMA }) as object
@@ -107,7 +124,10 @@ export function getAllEntries(): Entry[] {
 
     try {
       const validatedEntry = entrySchema.parse(data);
-      entries.push(validatedEntry);
+      entries.push({
+        ...validatedEntry,
+        content,
+      });
     } catch (error) {
       if (error instanceof z.ZodError) {
         const fieldErrors = error.issues.map(err => {

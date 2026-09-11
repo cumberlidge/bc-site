@@ -1,26 +1,234 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --paper: #FFFFFF;   /* ground — plain white, no tint, all pages */
+  --ink: #000000;     /* text — true black, not #111 */
+  --quiet: #6B6B6B;   /* type labels, secondary */
+  --link: #0000EE;    /* classic browser blue, unstyled on purpose */
+  --visited: #551A8B; /* keep visited state — it's an archive, it matters */
+  --rule: #E5E5E5;    /* year markers only */
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  color: var(--link);
+  text-decoration: none;
+}
+
+a:visited {
+  color: var(--visited);
+}
+
+/* Index page styles */
+.index {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem;
+}
+
+.year-section {
+  margin-bottom: 3rem;
+}
+
+.year-marker {
+  font-size: 1.5rem;
+  font-weight: 400;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--rule);
+  color: var(--ink);
+}
+
+.entries {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.entry-row {
+  display: grid;
+  grid-template-columns: 4rem 1fr auto;
+  gap: 1.5rem;
+  align-items: baseline;
+}
+
+.entry-date {
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.entry-title {
+  color: var(--ink);
+}
+
+.entry-type {
+  color: var(--quiet);
+  font-style: italic;
+}
+
+/* Detail page styles */
+.entry-detail {
+  margin: 0 auto;
+  padding: 3rem 1.5rem;
+}
+
+/* Type-specific measures */
+.entry-detail--essay {
+  max-width: 72ch;
+}
+
+.entry-detail--fiction {
+  max-width: 66ch;
+}
+
+.entry-detail--project {
+  max-width: 80ch;
+}
+
+.entry-detail--note {
+  max-width: 40ch;
+  text-align: center;
+  padding-top: 6rem;
+}
+
+/* Entry header */
+.entry-header {
+  margin-bottom: 2rem;
+}
+
+.entry-title {
+  font-size: 2rem;
+  font-weight: 400;
+  line-height: 1.2;
+  margin: 0 0 0.5rem 0;
+  color: var(--ink);
+}
+
+.entry-date {
+  font-size: 0.875rem;
+  color: var(--quiet);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Entry content */
+.entry-content {
+  line-height: 1.6;
+  margin-top: 2rem;
+}
+
+.entry-content p {
+  margin: 0 0 1rem 0;
+}
+
+.entry-content h2 {
+  font-size: 1.5rem;
+  font-weight: 400;
+  margin: 2rem 0 1rem 0;
+}
+
+.entry-content h3 {
+  font-size: 1.25rem;
+  font-weight: 400;
+  margin: 1.5rem 0 0.75rem 0;
+}
+
+.entry-content ul,
+.entry-content ol {
+  margin: 0 0 1rem 0;
+  padding-left: 1.5rem;
+}
+
+.entry-content li {
+  margin-bottom: 0.5rem;
+}
+
+.entry-content img {
+  max-width: 100%;
+  height: auto;
+  margin: 1.5rem 0;
+}
+
+/* Note-specific styles */
+.note-content {
+  font-size: 1.5rem;
+  line-height: 1.4;
+  margin-bottom: 3rem;
+}
+
+.note-content img {
+  /* Images in notes break out to full content width */
+  max-width: 100vw;
+  width: 100%;
+  height: auto;
+  margin: 2rem 0;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+}
+
+.note-meta {
+  margin-top: 4rem;
+  padding-top: 2rem;
+  font-size: 0.875rem;
+  color: var(--quiet);
+}
+
+.note-date {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.note-permalink {
+  display: block;
+  color: var(--link);
+}
+
+.note-permalink:visited {
+  color: var(--visited);
+}
+
+/* External link block */
+.external-link-block {
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  padding: 1rem 1.5rem;
+  margin: 1.5rem 0;
+}
+
+.external-link-block p {
+  margin: 0;
+}
+
+/* Project metadata */
+.project-meta {
+  margin: 1.5rem 0 2rem 0;
+  padding: 1rem 0;
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+}
+
+.project-stack {
+  margin-bottom: 0.75rem;
+  color: var(--ink);
+}
+
+.project-links {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.project-links a {
+  color: var(--link);
+}
+
+.project-links a:visited {
+  color: var(--visited);
 }
