@@ -1,0 +1,31 @@
+---
+title: bc-site v0.1 — Foundation
+date: 2026-09-07
+type: project
+slug: bc-site-v0-1
+summary: Domain, repo, deploy pipeline. Nothing on the site yet, which was the point.
+repoUrl: https://github.com/cumberlidge/bc-site
+stack: [Next.js, TypeScript, Tailwind, Vercel]
+---
+
+## Shipped
+
+A domain, a private repository, and a pipeline that takes a change from my laptop to the internet in about ninety seconds. No site yet — the deployed page is still the framework's starter. Three entries written and committed, waiting for something to render them.
+
+## Decisions
+
+**Publishing here, not on Substack.** I'd assumed I'd keep Substack and point a custom domain at it. Substack doesn't support canonical tags, so publishing in both places means competing with yourself and losing — their domain is stronger than mine will be for years. The workaround is a shortened version there linking back, which is twenty minutes on every post. I'd have abandoned it by the fourth one. The cost of the alternative is real: a new personal domain ranks for approximately nothing for a year, and I'm giving up the recommendation engine that actually grows a readership.
+
+**A list, not a grid.** I wanted something tiled and image-led. A grid needs volume to look designed and a cover image per entry — another per-post tax. A list works from the first entry, gets better as it accumulates, and lets essays, fiction, short notes and build logs sit together without looking broken.
+
+**Private repo.** Drafts live in git even when they're not on the site, and git keeps them in history after deletion. Unpublished writing shouldn't be world-readable.
+
+## Snags
+
+I was running Node 25 — an odd-numbered release line, which is never supported long-term and had already reached end of life. Everything worked, which is the problem: it would have kept working right up until it didn't, and I'd have been debugging my own code on an unmaintained platform.
+
+Also a stray lockfile in my home directory from a command run in the wrong place months ago, quietly confusing the build tooling.
+
+## Next
+
+Read the markdown files, validate them properly, fail loudly when one is malformed. Then the index.
