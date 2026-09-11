@@ -27,9 +27,9 @@ export default function Home() {
               // Extract month and day from date (YYYY-MM-DD)
               const [, month, day] = entry.date.split('-');
 
-              // For notes, use first line of content; otherwise use title
+              // For notes, use first sentence of content; otherwise use title
               const displayTitle = entry.type === 'note'
-                ? getFirstLine(entry.content, 60)
+                ? getFirstLine(entry.content)
                 : entry.title;
 
               return (
@@ -37,7 +37,10 @@ export default function Home() {
                   <div className="entry-date">
                     {month} {day}
                   </div>
-                  <Link href={`/${entry.slug}`} className="entry-title">
+                  <Link
+                    href={`/${entry.slug}`}
+                    className={`entry-title ${entry.type === 'note' ? 'entry-title--note' : ''}`}
+                  >
                     {displayTitle}
                   </Link>
                   <div className="entry-type">{entry.type}</div>

@@ -86,15 +86,34 @@ export type EntryWithContent = Entry & {
 const CONTENT_DIR = path.join(process.cwd(), 'content');
 
 /**
- * Extracts the first line from markdown content and truncates it at maxLength.
- * Used for displaying notes in the index.
+ * Extracts the first sentence from markdown content for displaying notes in the index.
+ * Takes text up to and including the first full stop.
+ * If the first sentence is longer than ~80 characters, truncates at the last whole word before 80.
  */
-export function getFirstLine(content: string, maxLength: number = 60): string {
-  const firstLine = content.trim().split('\n')[0];
-  if (firstLine.length <= maxLength) {
-    return firstLine;
+export function getFirstLine(content: string, maxLength: number = 80): string {
+  const text = content.trim();
+
+  // Find the first full stop
+  const firstSentenceMatch = text.match(/^[^.]+\./);
+
+  if (firstSentenceMatch) {
+    const firstSentence = firstSentenceMatch[0];
+
+    // If the sentence is within the max length, use it
+    if (firstSentence.length <= maxLength) {
+      return firstSentence;
+    }
   }
-  return firstLine.slice(0, maxLength);
+
+  // Fall back to truncating at the last whole word before maxLength
+  const truncated = text.substring(0, maxLength);
+  const lastSpace = truncated.lastIndexOf(' ');
+
+  if (lastSpace > 0) {
+    return truncated.substring(0, lastSpace);
+  }
+
+  return truncated;
 }
 
 /**

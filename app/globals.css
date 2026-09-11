@@ -67,6 +67,10 @@ a:visited {
   color: var(--ink);
 }
 
+.entry-title--note {
+  font-style: italic;
+}
+
 .entry-type {
   color: var(--quiet);
   font-style: italic;
