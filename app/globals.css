@@ -192,10 +192,18 @@ a:visited {
   margin: 1.5rem 0 0.75rem 0;
 }
 
-.entry-content ul,
+.entry-content ul {
+  margin: 0 0 1rem 0;
+  padding-left: 1.5rem;
+  list-style-type: disc;
+  list-style-position: outside;
+}
+
 .entry-content ol {
   margin: 0 0 1rem 0;
   padding-left: 1.5rem;
+  list-style-type: decimal;
+  list-style-position: outside;
 }
 
 .entry-content li {

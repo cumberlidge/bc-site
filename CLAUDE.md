@@ -42,10 +42,10 @@ State these plainly so they don't get built by accident:
 | Schema validation | Zod, run at build time |
 | Styling | Tailwind, with tokens defined in `globals.css` as CSS custom properties |
 | Hosting | Vercel |
-| Repo | GitHub, **private** |
+| Repo | GitHub, public |
 | Domain | barrycumberlidge.com, registered through Vercel |
 
-The repo is private. `draft: true` keeps an entry off the site but the file still sits in git, and unpublished personal writing should not be world-readable — nor should the history that keeps it after deletion. Vercel deploys from private repos on the free tier, so this costs nothing. `.gitignore` must cover `.env*` before the first commit; a leaked key gets rotated, not deleted, because removing it from a later commit does not remove it from history.
+The repo is public, so the build log can link to it. This means drafts stay out of git entirely — a committed file remains in history after deletion, so anything committed is public permanently. The draft field exists for the build, not for privacy.
 
 Static generation throughout in phase 1. Phases 3 and 4 introduce server-side data fetching and a database — that's deliberate, it's the part that transfers to the later product.
 
@@ -115,7 +115,7 @@ Body: what the problem was, what you'd do differently.
 
 Doubles as the build log for this site. Title carries the version — `bc-site v0.1 — Foundation` — and entries accumulate under the type filter, so no separate release-notes page or series field is needed. Version by shipped capability, not by working session.
 
-Write the reasoning, not the commands. The commands are in the git history; why you chose private over public, or killed a feature, is not recorded anywhere else and is the part worth reading in a year.
+Format: a short paragraph on what the session was about, then bullets. No headers. New capability leads, adjustments follow. Reasoning where it matters, not commands — the commands are in git history.
 
 ### Schema enforcement
 
@@ -248,7 +248,7 @@ Visible keyboard focus, contrast ≥ 4.5:1 for body text, `prefers-reduced-motio
 
 Ship each phase to production before starting the next.
 
-**Phase 1 — the stream.** Four MDX files, one per type. Index renders them with year markers and note truncation. Detail pages render with type-specific measure. Zod discriminated union failing the build. Deployed to Vercel on a custom domain. *Done when: you can add another MDX file, push, and see it live without touching code.*
+**Phase 1 — the stream.** Four MDX files, one per type. Index renders them with year markers and note truncation. Detail pages render with type-specific measure. Zod discriminated union failing the build. Deployed to Vercel on a custom domain. *Complete, 12 September 2026. Shipped across v0.1–v0.3.*
 
 **Phase 2 — the full index.** Type filter. RSS, sitemap, JSON-LD, h-entry markup, per-route metadata. About page. Draft handling verified. *Done when: a stranger's feed reader can subscribe, notes appear as notes rather than untitled articles, and Search Console accepts the sitemap.*
 
