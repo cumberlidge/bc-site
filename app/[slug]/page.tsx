@@ -23,9 +23,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     return {};
   }
 
-  // For notes, use first line as title
-  const title = entry.type === 'note'
-    ? getFirstLine(entry.content, 60)
+  // For notes without title, use first sentence as title
+  const title = entry.type === 'note' && !entry.title
+    ? getFirstLine(entry.content)
     : entry.title;
 
   return {
@@ -54,30 +54,15 @@ export default async function EntryPage({ params }: Props) {
   // Determine wrapper class based on type
   const wrapperClass = `entry-detail entry-detail--${entry.type}`;
 
-  // For notes, special treatment
-  if (entry.type === 'note') {
-    return (
-      <article className={wrapperClass}>
-        <div className="note-content">
-          <MDXRemote source={entry.content} components={components} />
-        </div>
-        <div className="note-meta">
-          <time dateTime={entry.date} className="note-date">
-            {entry.date}
-          </time>
-          <a href={`/${entry.slug}`} className="note-permalink">
-            Permalink
-          </a>
-        </div>
-      </article>
-    );
-  }
+  // For notes without title, use first sentence as header
+  const displayTitle = entry.type === 'note' && !entry.title
+    ? getFirstLine(entry.content)
+    : entry.title;
 
-  // For essays, fiction, and projects
   return (
     <article className={wrapperClass}>
       <header className="entry-header">
-        <h1 className="entry-title">{entry.title}</h1>
+        <h1 className="entry-title">{displayTitle}</h1>
         <time dateTime={entry.date} className="entry-date">
           {entry.date}
         </time>

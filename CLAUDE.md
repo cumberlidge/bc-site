@@ -91,13 +91,13 @@ Their presence renders a link block on the detail page. It does not change the t
 
 ### Type: `note`
 
-Fifty to a hundred words. Points at nothing, links to nothing, concludes nothing. No additional fields.
+Fifty to a hundred words. Points at nothing, links to nothing, concludes nothing.
 
-**Notes have no `title`.** This follows the IndieWeb convention and matters for RSS — a titleless entry given a placeholder title displays in feed readers as an article, which it isn't. Consequences:
+```yaml
+title: string          # optional
+```
 
-- Zod requires `title` on every type except `note`, where it must be absent.
-- The index row for a note renders its first line, truncated at roughly 60 characters, in the title column. No ellipsis styling tricks; just a plain truncation.
-- `generateMetadata` for a note derives its page title from the same truncation.
+**Notes may have a `title`, but it's optional.** When no title is present, the index and detail page use the first sentence of the content. Notes use the same measure and layout as essays and fiction — no special treatment.
 
 This type exists to keep the cadence alive between substantial entries. It is not filler — it's the thing that stops the project dying at entry six.
 
@@ -222,14 +222,10 @@ The carrier is **measure**. Serif tolerates slightly longer lines than sans, so 
 
 | Type | Measure | Rationale |
 |---|---|---|
-| `essay` | 72ch | sustained argument |
-| `fiction` | 66ch | narrower, slower reading |
+| `essay`, `fiction`, `note` | 72ch | sustained argument, narrative, short-form |
 | `project` | 80ch | holds code blocks and images |
-| `note` | 40ch, centred | see below |
 
 Secondary carrier is structural difference that already exists: an externally-published essay or fiction piece has a link block; a `project` has repo, live link and stack. These may distinguish the pages sufficiently on their own.
-
-`note` is where the one bold move goes. Set large, centred, narrow, with the date and permalink below the fold. It should look unlike everything else on the site — and everything else should stay quiet so it can.
 
 ### Images in entry bodies
 
@@ -239,8 +235,6 @@ Any type may contain inline images. This is distinct from the future `visual` ty
 - Standard markdown `![alt text](/images/filename.jpg)`, rendered as a plain `<img>` with `max-width: 100%; height: auto`. No `next/image`, no lightbox, no captions component in phase 1.
 - Alt text is required, not optional.
 - Resize to ~1600px wide and compress before committing. Git keeps every version of every binary permanently, so an unoptimised photo is in the repo forever even after it's replaced.
-
-**Open question for phase 1:** images in a `note` body. Notes are set at 40ch centred, which makes an in-measure image very small. Proposal is to let images break out to full content width while the text stays narrow. Build it, look at it, decide.
 
 ### Explicitly avoid
 

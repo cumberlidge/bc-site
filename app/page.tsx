@@ -27,8 +27,8 @@ export default function Home() {
               // Extract month and day from date (YYYY-MM-DD)
               const [, month, day] = entry.date.split('-');
 
-              // For notes, use first sentence of content; otherwise use title
-              const displayTitle = entry.type === 'note'
+              // For notes without title, use first sentence; otherwise use title
+              const displayTitle = entry.type === 'note' && !entry.title
                 ? getFirstLine(entry.content)
                 : entry.title;
 

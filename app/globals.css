@@ -90,22 +90,14 @@ a:visited {
 }
 
 /* Type-specific measures */
-.entry-detail--essay {
+.entry-detail--essay,
+.entry-detail--fiction,
+.entry-detail--note {
   max-width: 72ch;
-}
-
-.entry-detail--fiction {
-  max-width: 66ch;
 }
 
 .entry-detail--project {
   max-width: 80ch;
-}
-
-.entry-detail--note {
-  max-width: 40ch;
-  text-align: center;
-  padding-top: 6rem;
 }
 
 /* Entry header */
@@ -164,50 +156,6 @@ a:visited {
   max-width: 100%;
   height: auto;
   margin: 1.5rem 0;
-}
-
-/* Note-specific styles */
-.note-content {
-  font-size: 1.5rem;
-  line-height: 1.4;
-  margin-bottom: 3rem;
-}
-
-.note-content img {
-  /* Images in notes break out beyond 40ch text measure but stay centered */
-  display: block;
-  max-width: 80ch;
-  width: 100%;
-  height: auto;
-  margin: 2rem auto;
-}
-
-.note-meta {
-  margin-top: 4rem;
-  padding-top: 2rem;
-  font-size: 0.875rem;
-  color: var(--quiet);
-  font-style: normal;
-}
-
-.note-date {
-  display: block;
-  margin-bottom: 0.5rem;
-}
-
-.note-permalink {
-  display: block;
-  color: var(--ink);
-  text-decoration: none;
-}
-
-.note-permalink:visited {
-  color: var(--ink);
-}
-
-.note-permalink:hover,
-.note-permalink:focus {
-  text-decoration: underline;
 }
 
 /* External link block */

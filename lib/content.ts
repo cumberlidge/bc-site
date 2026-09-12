@@ -47,13 +47,11 @@ const fictionSchema = baseSchema.extend({
   title: z.string(),
 }).merge(externalPublicationSchema);
 
-// Note schema - title must be absent
-// Using strict() ensures no additional fields like title are allowed
-const noteSchema = baseSchema
-  .extend({
-    type: z.literal('note'),
-  })
-  .strict();
+// Note schema - title is optional
+const noteSchema = baseSchema.extend({
+  type: z.literal('note'),
+  title: z.string().optional(),
+});
 
 // Project schema
 const projectSchema = baseSchema.extend({
