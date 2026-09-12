@@ -64,6 +64,7 @@ a:visited {
 }
 
 .entry-title {
+  font-size: 1.125rem;
   color: var(--ink);
   text-decoration: none;
 }
@@ -79,13 +80,13 @@ a:visited {
 
 .entry-type {
   color: var(--quiet);
-  font-style: italic;
 }
 
 /* Detail page styles */
 .entry-detail {
   margin: 0 auto;
   padding: 3rem 1.5rem;
+  width: 100%;
 }
 
 /* Type-specific measures */
@@ -112,8 +113,8 @@ a:visited {
   margin-bottom: 2rem;
 }
 
-.entry-title {
-  font-size: 2rem;
+.entry-header .entry-title {
+  font-size: 1.75rem;
   font-weight: 400;
   line-height: 1.2;
   margin: 0 0 0.5rem 0;
@@ -128,6 +129,7 @@ a:visited {
 
 /* Entry content */
 .entry-content {
+  font-size: 1.1875rem;
   line-height: 1.6;
   margin-top: 2rem;
 }
@@ -185,6 +187,7 @@ a:visited {
   padding-top: 2rem;
   font-size: 0.875rem;
   color: var(--quiet);
+  font-style: normal;
 }
 
 .note-date {
@@ -194,11 +197,17 @@ a:visited {
 
 .note-permalink {
   display: block;
-  color: var(--link);
+  color: var(--ink);
+  text-decoration: none;
 }
 
 .note-permalink:visited {
-  color: var(--visited);
+  color: var(--ink);
+}
+
+.note-permalink:hover,
+.note-permalink:focus {
+  text-decoration: underline;
 }
 
 /* External link block */
