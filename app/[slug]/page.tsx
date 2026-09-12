@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import { getAllEntries, getFirstLine } from '@/lib/content';
+import { formatDate } from '@/lib/formatDate';
 import Header from '@/components/Header';
 import type { Metadata } from 'next';
 
@@ -67,8 +68,30 @@ export default async function EntryPage({ params }: Props) {
       <header className="entry-header">
         <h1 className="entry-title">{displayTitle}</h1>
         <time dateTime={entry.date} className="entry-date">
-          {entry.date}
+          {formatDate(entry.date)}
         </time>
+        {/* Project metadata on same line as date */}
+        {entry.type === 'project' && (entry.stack || entry.repoUrl || entry.liveUrl) && (
+          <div className="project-meta">
+            {entry.stack && entry.stack.length > 0 && (
+              <span>{entry.stack.join(' · ')}</span>
+            )}
+            {entry.stack && entry.stack.length > 0 && (entry.repoUrl || entry.liveUrl) && (
+              <span> · </span>
+            )}
+            {entry.repoUrl && (
+              <a href={entry.repoUrl} target="_blank" rel="noopener noreferrer">
+                Repository
+              </a>
+            )}
+            {entry.repoUrl && entry.liveUrl && <span> · </span>}
+            {entry.liveUrl && (
+              <a href={entry.liveUrl} target="_blank" rel="noopener noreferrer">
+                Live site
+              </a>
+            )}
+          </div>
+        )}
       </header>
 
       {/* External publication block for essays and fiction */}
@@ -80,29 +103,6 @@ export default async function EntryPage({ params }: Props) {
               Read on {entry.externalSource || 'external site'}
             </a>
           </p>
-        </div>
-      )}
-
-      {/* Project metadata block */}
-      {entry.type === 'project' && (
-        <div className="project-meta">
-          {entry.stack && entry.stack.length > 0 && (
-            <div className="project-stack">
-              <strong>Stack:</strong> {entry.stack.join(', ')}
-            </div>
-          )}
-          <div className="project-links">
-            {entry.repoUrl && (
-              <a href={entry.repoUrl} target="_blank" rel="noopener noreferrer">
-                Repository
-              </a>
-            )}
-            {entry.liveUrl && (
-              <a href={entry.liveUrl} target="_blank" rel="noopener noreferrer">
-                Live site
-              </a>
-            )}
-          </div>
         </div>
       )}
 

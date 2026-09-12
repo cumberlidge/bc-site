@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { getAllEntries, getFirstLine } from '@/lib/content';
+import { formatDate } from '@/lib/formatDate';
 import Header from '@/components/Header';
 
 export default function Home() {
@@ -27,9 +28,6 @@ export default function Home() {
           <div className="year-marker">{year}</div>
           <div className="entries">
             {entriesByYear[year].map((entry) => {
-              // Extract month and day from date (YYYY-MM-DD)
-              const [, month, day] = entry.date.split('-');
-
               // For notes without title, use first sentence; otherwise use title
               const displayTitle = entry.type === 'note' && !entry.title
                 ? getFirstLine(entry.content)
@@ -38,7 +36,7 @@ export default function Home() {
               return (
                 <div key={entry.slug} className="entry-row">
                   <div className="entry-date">
-                    {month} {day}
+                    {formatDate(entry.date)}
                   </div>
                   <Link href={`/${entry.slug}`} className="entry-title">
                     {displayTitle}
