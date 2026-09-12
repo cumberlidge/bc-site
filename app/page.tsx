@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { getAllEntries, getFirstLine } from '@/lib/content';
+import Header from '@/components/Header';
 
 export default function Home() {
   const entries = getAllEntries();
@@ -18,7 +19,9 @@ export default function Home() {
   const years = Object.keys(entriesByYear).sort((a, b) => parseInt(b) - parseInt(a));
 
   return (
-    <main className="index">
+    <div className="page-container">
+      <Header showDescription />
+      <main className="index">
       {years.map((year) => (
         <div key={year} className="year-section">
           <div className="year-marker">{year}</div>
@@ -47,6 +50,7 @@ export default function Home() {
           </div>
         </div>
       ))}
-    </main>
+      </main>
+    </div>
   );
 }

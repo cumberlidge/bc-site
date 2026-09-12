@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import { getAllEntries, getFirstLine } from '@/lib/content';
+import Header from '@/components/Header';
 import type { Metadata } from 'next';
 
 type Props = {
@@ -60,7 +61,9 @@ export default async function EntryPage({ params }: Props) {
     : entry.title;
 
   return (
-    <article className={wrapperClass}>
+    <div className="page-container">
+      <Header variant="detail" />
+      <article className={wrapperClass}>
       <header className="entry-header">
         <h1 className="entry-title">{displayTitle}</h1>
         <time dateTime={entry.date} className="entry-date">
@@ -107,5 +110,6 @@ export default async function EntryPage({ params }: Props) {
         <MDXRemote source={entry.content} components={components} />
       </div>
     </article>
+    </div>
   );
 }
